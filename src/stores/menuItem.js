@@ -87,7 +87,6 @@ export const useMenuItemStore = defineStore('menuItem', () => {
     lastPage,
     total,
     fetchMenuItems,
-    fetchBusinesses,
     createMenuItem,
     updateMenuItem,
     deleteMenuItem

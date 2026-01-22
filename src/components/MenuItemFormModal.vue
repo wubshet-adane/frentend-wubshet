@@ -58,33 +58,7 @@
             </p>
           </div>
 
-          <!-- Business -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Business *</label>
-            <select
-              v-model="form.business_id"
-              required
-              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              :class="{ 'border-red-500': errors.business_id }"
-            >
-              <option value="">
-                {{
-                  businesses.length === 0
-                    ? 'No businesses available - Please create one first'
-                    : 'Select a business'
-                }}
-              </option>
-              <option v-for="business in businesses" :key="business.id" :value="business.id">
-                {{ business.name }} ({{ business.type }})
-              </option>
-            </select>
-            <p v-if="businesses.length === 0" class="mt-1 text-sm text-yellow-600">
-              ⚠️ Please create a business first before adding menu items.
-            </p>
-            <p v-if="errors.business_id" class="mt-1 text-sm text-red-600">
-              {{ errors.business_id[0] }}
-            </p>
-          </div>
+         
 
           <!-- Price, Tax, Discount Grid -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -194,14 +168,13 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
-import type { MenuItem, Business } from '@/stores/menuItem'
+import type { MenuItem } from '@/stores/menuItem'
 import type { Category } from '@/stores/category'
 
 interface Props {
   isOpen: boolean
   editingItem: MenuItem | null
   categories: Category[]
-  businesses: Business[]
   loading: boolean
 }
 
@@ -214,7 +187,6 @@ const emit = defineEmits<{
 interface MenuItemFormData {
   item_name: string
   category_id: number | string
-  business_id: number | string
   price: number | string
   tax_percentage: number | string
   discount: number | string
@@ -223,7 +195,6 @@ interface MenuItemFormData {
 const form = ref<MenuItemFormData>({
   item_name: '',
   category_id: '',
-  business_id: '',
   price: '',
   tax_percentage: 0,
   discount: 0,
@@ -260,7 +231,6 @@ const closeModal = () => {
   form.value = {
     item_name: '',
     category_id: '',
-    business_id: '',
     price: '',
     tax_percentage: 0,
     discount: 0,
@@ -280,7 +250,6 @@ const handleSubmit = async () => {
     const formData = new FormData()
     formData.append('item_name', form.value.item_name)
     formData.append('category_id', String(form.value.category_id))
-    formData.append('business_id', String(form.value.business_id))
     formData.append('price', String(form.value.price))
     formData.append('tax_percentage', String(form.value.tax_percentage))
     formData.append('discount', String(form.value.discount))
@@ -306,7 +275,6 @@ watch(
       form.value = {
         item_name: props.editingItem.item_name,
         category_id: props.editingItem.category_id,
-        business_id: props.editingItem.business_id,
         price: props.editingItem.price,
         tax_percentage: props.editingItem.tax_percentage,
         discount: props.editingItem.discount,
@@ -322,7 +290,6 @@ watch(
       form.value = {
         item_name: '',
         category_id: '',
-        business_id: '',
         price: '',
         tax_percentage: 0,
         discount: 0,

@@ -18,12 +18,7 @@
               >
                 Categories
               </RouterLink>
-              <RouterLink
-                to="/restaurants"
-                class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                Restaurants
-              </RouterLink>
+             
               <RouterLink
                 to="/menu-items"
                 class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
@@ -149,7 +144,7 @@
         <button
           @click="changePage(categoryStore.pagination.current_page - 1)"
           :disabled="categoryStore.pagination.current_page === 1"
-          class="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+          class="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-50"
         >
           Previous
         </button>

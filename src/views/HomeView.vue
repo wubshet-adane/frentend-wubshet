@@ -18,12 +18,7 @@
               >
                 Categories
               </RouterLink>
-              <RouterLink
-                to="/restaurants"
-                class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                Restaurants
-              </RouterLink>
+              
               <RouterLink
                 to="/menu-items"
                 class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"

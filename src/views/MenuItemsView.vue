@@ -19,12 +19,7 @@
               >
                 Categories
               </RouterLink>
-              <RouterLink
-                to="/restaurants"
-                class="px-4 py-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-              >
-                Restaurants
-              </RouterLink>
+             
               <RouterLink to="/menu-items" class="px-4 py-2 rounded-lg text-gray-900 bg-gray-100">
                 Menu Items
               </RouterLink>
@@ -63,18 +58,7 @@
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          <!-- <button
-            @click="showFavoritesOnly = !showFavoritesOnly"
-            class="px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-            :class="
-              showFavoritesOnly
-                ? 'bg-yellow-100 text-yellow-700 border border-yellow-300'
-                : 'bg-gray-100 text-gray-700 border border-gray-300'
-            "
-          >
-            <StarIcon class="h-5 w-5" :class="showFavoritesOnly ? 'fill-current' : ''" />
-            Favorites
-          </button> -->
+         
         </div>
       </div>
 
@@ -97,7 +81,7 @@
       <!-- Empty State -->
       <div v-else-if="filteredItems.length === 0" class="text-center py-12">
         <p class="text-gray-500 text-lg">No menu items found</p>
-        <button @click="openCreateModal" class="mt-4 text-blue-600 hover:text-blue-700 font-medium">
+        <button @click="openCreateModal" class="mt-4 text-green-600 hover:text-green-700 font-medium">
           Create your first menu item
         </button>
       </div>
@@ -131,17 +115,6 @@
                 <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
                   <PhotoIcon class="h-16 w-16" />
                 </div>
-
-                <!-- Favorite Button -->
-                <!-- <button
-                  @click="toggleFavorite(item.id)"
-                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-lg hover:bg-gray-50"
-                >
-                  <StarIcon
-                    class="h-5 w-5"
-                    :class="isFavorite(item.id) ? 'text-yellow-500 fill-current' : 'text-gray-400'"
-                  />
-                </button> -->
               </div>
 
               <!-- Content -->
