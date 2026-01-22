@@ -83,7 +83,7 @@
         <p class="text-gray-600 mb-4">Get started by creating your first category</p>
         <button
           @click="showCreateModal = true"
-          class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+          class="px-4 py-2 hover:bg-green-900 text-green-900 hover:text-white rounded-lg  border border-green-900"
         >
           Create Category
         </button>
