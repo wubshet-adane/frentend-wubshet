@@ -26,13 +26,23 @@ const router = createRouter({
       component: () => import('../views/CategoriesView.vue'),
       meta: { requiresAuth: true },
     },
-    
+    {
+      path: '/slug',
+      name: 'slug',
+      component: () => import('../views/SlugView.vue'),
+      meta: { requiresAuth: true },
+    },
     {
       path: '/menu-items',
       name: 'menuItems',
       component: () => import('@/views/MenuItemsView.vue'),
       meta: { requiresAuth: true },
     },
+    {
+  path: '/menu/:serviceProviderSlug',
+  name: 'PublicMenu',
+  component: () => import('@/views/PublicMenu.vue')
+}
   ],
 })
 

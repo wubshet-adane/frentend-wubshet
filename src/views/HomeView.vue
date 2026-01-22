@@ -40,11 +40,12 @@
             our restaurants hub
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
+            <RouterLink
+            to="/slug"
               class="px-8 py-4 border border-green-900 text-green-900 hover:text-white font-semibold rounded-lg hover:bg-green-800 transition-colors duration-200 shadow-sm"
             >
-              Get Started
-            </button>
+              View public customer url
+            </RouterLink>
           </div>
         </div>
       </div>
