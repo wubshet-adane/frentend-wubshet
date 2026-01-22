@@ -2,17 +2,17 @@
   <div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full">
       <div class="bg-white rounded-xl shadow-sm p-8">
+
         <!-- Header -->
         <div class="text-center mb-8">
-          <div
-            class="inline-flex items-center justify-center w-16 h-16 bg-green-900 rounded-full mb-4"
-          >
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-900 rounded-full mb-4">
             <UserPlusIcon class="w-8 h-8 text-white" />
           </div>
           <h2 class="text-3xl font-bold text-green-700">Create Account</h2>
         </div>
 
         <form @submit.prevent="handleSubmit" class="space-y-5" novalidate>
+
           <!-- API Error -->
           <div
             v-if="apiError"
@@ -27,7 +27,7 @@
             :key="field.id"
             :id="field.id"
             :label="field.label"
-            v-model="formData[field.id] as string"
+            v-model="formData[field.id]"
             :type="field.type"
             :placeholder="field.placeholder"
             :error="errors[field.id]"
@@ -55,34 +55,20 @@
                     :style="{ width: strength.width }"
                   ></div>
                 </div>
-                <span class="text-xs font-medium" :class="strength.textColor">{{
-                  strength.label
-                }}</span>
+                <span class="text-xs font-medium" :class="strength.textColor">
+                  {{ strength.label }}
+                </span>
               </div>
             </template>
           </FormInput>
 
-          <!-- Terms Checkbox -->
-          <div class="flex items-start">
-            <input
-              id="terms"
-              v-model="formData.acceptTerms"
-              type="checkbox"
-              @change="validateTerms"
-              :class="[
-                'h-4 w-4 focus:ring-gray-900 border-gray-300 rounded mt-1 cursor-pointer',
-                errors.acceptTerms ? 'border-red-500' : 'text-gray-900',
-              ]"
-            />
-            <label for="terms" class="ml-2 block text-sm text-gray-700 cursor-pointer">
-              <a href="#" class="text-gray-900 hover:underline font-medium">Privacy Policy</a>
-            </label>
-          </div>
+         
+
           <p v-if="errors.acceptTerms" class="-mt-3 text-sm text-red-600">
             {{ errors.acceptTerms }}
           </p>
 
-          <!-- Submit Button -->
+          <!-- Submit -->
           <button
             type="submit"
             :disabled="isLoading"
@@ -90,7 +76,7 @@
               'w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center',
               isLoading
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-green-900 hover:bg-green-800 active:scale-[0.98] text-white',
+                : 'bg-green-900 hover:bg-green-800 active:scale-[0.98] text-white'
             ]"
           >
             <svg
@@ -107,38 +93,37 @@
                 r="10"
                 stroke="currentColor"
                 stroke-width="4"
-              ></circle>
+              />
               <path
                 class="opacity-75"
                 fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
             </svg>
+
             {{ isLoading ? 'Creating account...' : 'Create Account' }}
           </button>
 
-          <!-- Sign In Link -->
           <p class="text-center text-sm text-gray-600">
             Already have an account?
-            <RouterLink
-              to="/login"
-              class="font-medium text-gray-900 hover:underline transition-colors"
-            >
+            <RouterLink to="/login" class="font-medium text-gray-900 hover:underline">
               Sign in
             </RouterLink>
           </p>
+
         </form>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, computed } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useFormValidation } from '@/composables/useFormValidation'
 import FormInput from '@/components/FormInput.vue'
+
 import {
   UserIcon,
   EnvelopeIcon,
@@ -148,50 +133,14 @@ import {
   LockClosedIcon,
   EyeIcon,
   EyeSlashIcon,
-  UserPlusIcon,
+  UserPlusIcon
 } from '@heroicons/vue/24/outline'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const { errors, getPasswordStrength } = useFormValidation()
 
-// Simple validation functions
-function validateField(field: string, value: string, minLength = 0) {
-  if (!value || value.trim() === '') {
-    errors[field] = `${field.replace('_', ' ')} is required`
-    return false
-  }
-  if (minLength > 0 && value.trim().length < minLength) {
-    errors[field] = `Must be at least ${minLength} characters`
-    return false
-  }
-  errors[field] = ''
-  return true
-}
-
-function validateEmailField(value: string) {
-  if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-    errors.email = 'Please enter a valid email'
-    return false
-  }
-  errors.email = ''
-  return true
-}
-
-function validatePasswordField(value: string) {
-  if (!value || value.length < 8) {
-    errors.password = 'Password must be at least 8 characters'
-    return false
-  }
-  if (!/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value)) {
-    errors.password = 'Password must have uppercase, lowercase and number'
-    return false
-  }
-  errors.password = ''
-  return true
-}
-
-const formData: Record<string, string | boolean> = reactive({
+const formData = reactive({
   name: '',
   email: '',
   phone: '',
@@ -199,7 +148,9 @@ const formData: Record<string, string | boolean> = reactive({
   confirmPassword: '',
   business_name: '',
   tin: '',
-  acceptTerms: false,
+  type: '',
+  location: '',
+  acceptTerms: true
 })
 
 const isLoading = ref(false)
@@ -207,22 +158,51 @@ const apiError = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 
-// Validators
-const validateName = () => validateField('name', formData.name as string, 2)
-const validateEmail = () => validateEmailField(formData.email as string)
-const validatePhone = () => validateField('phone', formData.phone as string, 10)
-const validateBusinessName = () =>
-  validateField('business_name', formData.business_name as string, 2)
-const validateTin = () => validateField('tin', formData.tin as string, 5)
-const validatePassword = () => validatePasswordField(formData.password as string)
+/* ---------- VALIDATION ---------- */
+function validateField(field, value, minLength = 0) {
+  if (!value || value.trim() === '') {
+    errors[field] = `${field.replace('_', ' ')} is required`
+    return false
+  }
+  if (minLength && value.length < minLength) {
+    errors[field] = `Must be at least ${minLength} characters`
+    return false
+  }
+  errors[field] = ''
+  return true
+}
+
+function validateEmailField(value) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    errors.email = 'Please enter a valid email'
+    return false
+  }
+  errors.email = ''
+  return true
+}
+
+function validatePasswordField(value) {
+  if (value.length < 8) {
+    errors.password = 'Password must be at least 8 characters'
+    return false
+  }
+  if (!/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value)) {
+    errors.password = 'Password must contain upper, lower and number'
+    return false
+  }
+  errors.password = ''
+  return true
+}
+
 const validateConfirmPassword = () => {
-  if (!formData.confirmPassword || formData.confirmPassword !== formData.password) {
+  if (formData.confirmPassword !== formData.password) {
     errors.confirmPassword = 'Passwords do not match'
     return false
   }
   errors.confirmPassword = ''
   return true
 }
+
 const validateTerms = () => {
   if (!formData.acceptTerms) {
     errors.acceptTerms = 'You must accept the terms'
@@ -232,9 +212,9 @@ const validateTerms = () => {
   return true
 }
 
-const strength = computed(() => getPasswordStrength(formData.password as string))
+const strength = computed(() => getPasswordStrength(formData.password))
 
-// Form fields configuration (computed so isVisible updates reactively)
+/* ---------- FORM FIELDS ---------- */
 const formFields = computed(() => [
   {
     id: 'name',
@@ -242,7 +222,7 @@ const formFields = computed(() => [
     type: 'text',
     placeholder: 'Wubshet Adane',
     icon: UserIcon,
-    validate: validateName,
+    validate: () => validateField('name', formData.name, 2)
   },
   {
     id: 'email',
@@ -250,7 +230,7 @@ const formFields = computed(() => [
     type: 'email',
     placeholder: 'wubshet@example.com',
     icon: EnvelopeIcon,
-    validate: validateEmail,
+    validate: () => validateEmailField(formData.email)
   },
   {
     id: 'phone',
@@ -258,7 +238,7 @@ const formFields = computed(() => [
     type: 'tel',
     placeholder: '09xxxxxxxx',
     icon: PhoneIcon,
-    validate: validatePhone,
+    validate: () => validateField('phone', formData.phone, 10)
   },
   {
     id: 'business_name',
@@ -266,7 +246,7 @@ const formFields = computed(() => [
     type: 'text',
     placeholder: 'Wubshet Restaurant',
     icon: BuildingOfficeIcon,
-    validate: validateBusinessName,
+    validate: () => validateField('business_name', formData.business_name, 2)
   },
   {
     id: 'tin',
@@ -274,7 +254,23 @@ const formFields = computed(() => [
     type: 'text',
     placeholder: '123452345',
     icon: IdentificationIcon,
-    validate: validateTin,
+    validate: () => validateField('tin', formData.tin, 5)
+  },
+  {
+    id: 'type',
+    label: 'Restaurant Type',
+    type: 'text',
+    placeholder: 'Muslim restaurant',
+    icon: IdentificationIcon,
+    validate: () => validateField('type', formData.type, 2)
+  },
+  {
+    id: 'location',
+    label: 'Restaurant Address',
+    type: 'text',
+    placeholder: 'Salite`mhret',
+    icon: IdentificationIcon,
+    validate: () => validateField('location', formData.location, 3)
   },
   {
     id: 'password',
@@ -284,7 +280,7 @@ const formFields = computed(() => [
     icon: LockClosedIcon,
     showToggle: true,
     isVisible: showPassword.value,
-    validate: validatePassword,
+    validate: () => validatePasswordField(formData.password)
   },
   {
     id: 'confirmPassword',
@@ -294,54 +290,27 @@ const formFields = computed(() => [
     icon: LockClosedIcon,
     showToggle: true,
     isVisible: showConfirmPassword.value,
-    validate: validateConfirmPassword,
-  },
+    validate: validateConfirmPassword
+  }
 ])
 
+/* ---------- SUBMIT ---------- */
 const handleSubmit = async () => {
   apiError.value = ''
-  // Clear previous backend errors
-  Object.keys(errors).forEach((key) => (errors[key] = ''))
+  Object.keys(errors).forEach((k) => (errors[k] = ''))
 
-  const isValid = [
-    validateName(),
-    validateEmail(),
-    validatePhone(),
-    validateBusinessName(),
-    validateTin(),
-    validatePassword(),
-    validateConfirmPassword(),
-    validateTerms(),
-  ].every((v) => v)
-
-  if (!isValid) return
+  const valid = formFields.value.every((f) => f.validate()) && validateTerms()
+  if (!valid) return
 
   isLoading.value = true
   try {
     const result = await authStore.register({
-      name: formData.name as string,
-      email: formData.email as string,
-      phone: formData.phone as string,
-      password: formData.password as string,
-      password_confirmation: formData.password as string,
-      business_name: formData.business_name as string,
-      tin: formData.tin as string,
+      ...formData,
+      password_confirmation: formData.password
     })
 
-    if (result.success) {
-      router.push('/')
-    } else {
-      // Handle backend validation errors
-      if (result.errors) {
-        Object.keys(result.errors).forEach((field) => {
-          const fieldErrors = result.errors?.[field]
-          if (fieldErrors && fieldErrors.length > 0 && fieldErrors[0]) {
-            errors[field] = fieldErrors[0]
-          }
-        })
-      }
-      apiError.value = result.message || 'Registration failed.'
-    }
+    if (!result.status) router.push('/')
+    else apiError.value = result.message || 'Registration failed'
   } catch {
     apiError.value = 'Registration failed. Please try again.'
   } finally {

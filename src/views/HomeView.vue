@@ -116,7 +116,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useAuthStore } from '@/stores/auth'
 import ProfileDropdown from '@/components/ProfileDropdown.vue'
 

@@ -42,10 +42,12 @@ import api from '@/services/api'
 const route = useRoute()
 const slug = route.params.slug
 
+
 const business = ref({})
 const categories = ref([])
 
 onMounted(async () => {
+    alert(slug)
   const res = await api.get(`/public-menu/${slug}`)
   business.value = res.data.provider
   categories.value = res.data.categories
