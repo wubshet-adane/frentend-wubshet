@@ -5,10 +5,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
           <div class="flex items-center gap-6">
-            <RouterLink
-              to="/"
-              class="text-2xl font-bold text-green-600 transition-colors"
-            >
+            <RouterLink to="/" class="text-2xl font-bold text-green-600 transition-colors">
               Wubshet Menu site
             </RouterLink>
             <nav v-if="authStore.user" class="flex items-center gap-2">
@@ -18,7 +15,7 @@
               >
                 Categories
               </RouterLink>
-              
+
               <RouterLink
                 to="/menu-items"
                 class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
