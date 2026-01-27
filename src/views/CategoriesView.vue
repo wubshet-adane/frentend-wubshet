@@ -18,7 +18,7 @@
               >
                 Categories
               </RouterLink>
-             
+
               <RouterLink
                 to="/menu-items"
                 class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
@@ -54,9 +54,28 @@
 
       <!-- Loading State -->
       <div v-if="categoryStore.isLoading" class="text-center py-12">
-        <div
-          class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-gray-900"
-        ></div>
+        <div>
+          <svg
+            class="animate-spin h-10 w-10 text-green-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
+          </svg>
+        </div>
         <p class="mt-4 text-gray-600">Loading categories...</p>
       </div>
 
@@ -78,7 +97,7 @@
         <p class="text-gray-600 mb-4">Get started by creating your first category</p>
         <button
           @click="showCreateModal = true"
-          class="px-4 py-2 hover:bg-green-900 text-green-900 hover:text-white rounded-lg  border border-green-900"
+          class="px-4 py-2 hover:bg-green-900 text-green-900 hover:text-white rounded-lg border border-green-900"
         >
           Create Category
         </button>

@@ -19,7 +19,7 @@
               >
                 Categories
               </RouterLink>
-             
+
               <RouterLink to="/menu-items" class="px-4 py-2 rounded-lg text-gray-900 bg-gray-100">
                 Menu Items
               </RouterLink>
@@ -58,16 +58,31 @@
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-         
         </div>
       </div>
 
       <!-- Loading State -->
-      <div v-if="menuItemStore.loading" class="text-center py-12">
-        <div
-          class="inline-block animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"
-        ></div>
-        <p class="text-gray-600 mt-2">Loading menu items...</p>
+      <div v-if="menuItemStore.loading" class="text-center m-auto py-12">
+        <svg
+          class="animate-spin h-10 w-10 text-green-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          />
+        </svg>
       </div>
 
       <!-- Error State -->
@@ -81,7 +96,10 @@
       <!-- Empty State -->
       <div v-else-if="filteredItems.length === 0" class="text-center py-12">
         <p class="text-gray-500 text-lg">No menu items found</p>
-        <button @click="openCreateModal" class="mt-4 text-green-600 hover:text-green-700 font-medium">
+        <button
+          @click="openCreateModal"
+          class="mt-4 text-green-600 hover:text-green-700 font-medium"
+        >
           Create your first menu item
         </button>
       </div>
